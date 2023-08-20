@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jogo Associação</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #282c35;
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 500px;
+    margin: 0 auto;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .item {
+    background-color: #444;
+    border: none;
+    padding: 20px;
+    margin: 10px;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 16px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    width: 100%;
+  }
+
+  .item:hover {
+    background-color: #555;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .item:focus {
+    outline: none;
+    border: 2px solid #4caf50;
+  }
+
+  h1 {
+    margin: 20px 0;
+    font-size: 24px;
+  }
+</style>
+</head>
+<body>
+<h1>Jogo Associação</h1>
+<div class="container">
+  <div class="column" id="englishColumn"></div>
+  <div class="column" id="portugueseColumn"></div>
+</div>
+
+<script>
+  const words = [
+    { english: "Apple", portuguese: "Maçã" },
+    { english: "Strawberry", portuguese: "Morango" },
+    { english: "Grapes", portuguese: "Uva" },
+    { english: "Car", portuguese: "Carro" },
+    { english: "Book", portuguese: "Livro" },
+    { english: "Table", portuguese: "Mesa" },
+    { english: "Chair", portuguese: "Cadeira" },
+    { english: "Phone", portuguese: "Telefone" },
+    { english: "Computer", portuguese: "Computador" },
+    { english: "Key", portuguese: "Chave" },
+    { english: "Clock", portuguese: "Relógio" },
+    { english: "Door", portuguese: "Porta" },
+    { english: "Window", portuguese: "Janela" },
+    { english: "Bicycle", portuguese: "Bicicleta" },
+    { english: "Chair", portuguese: "Cadeira" },
+    { english: "Tablet", portuguese: "Tablet" },
+    { english: "Pen", portuguese: "Caneta" },
+    { english: "Pencil", portuguese: "Lápis" },
+    { english: "Bag", portuguese: "Bolsa" },
+    { english: "Shoes", portuguese: "Sapatos" },
+    { english: "Hat", portuguese: "Chapéu" },
+    { english: "Umbrella", portuguese: "Guarda-chuva" },
+    { english: "Cup", portuguese: "Copo" }
+  ];
+
+  const selectedWords = [];
+  while (selectedWords.length < 4) {
+    const randomIndex = Math.floor(Math.random() * words.length);
+    const selectedWord = words[randomIndex];
+    if (!selectedWords.includes(selectedWord)) {
+      selectedWords.push(selectedWord);
+    }
+  }
+
+  const englishColumn = document.getElementById("englishColumn");
+  const portugueseColumn = document.getElementById("portugueseColumn");
+
+  selectedWords.forEach(wordPair => {
+    const englishButton = document.createElement("button");
+    englishButton.classList.add("item");
+    englishButton.textContent = wordPair.english;
+
+    const portugueseButton = document.createElement("button");
+    portugueseButton.classList.add("item");
+    portugueseButton.textContent = wordPair.portuguese;
+
+    englishColumn.appendChild(englishButton);
+    portugueseColumn.appendChild(portugueseButton);
+  });
+  
+</script>
+</body>
+</html>
