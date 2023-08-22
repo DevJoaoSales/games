@@ -42,10 +42,6 @@ function playText() {
 
   //document.getElementById("txtSelect").innerText = test;
 
-
-  // Para cancelar a reprodução
-  window.speechSynthesis.cancel();
-
   const enUSVoice = speechSynthesis.getVoices().find(voice =>  voice.lang === "en_US" || voice.lang === "en-US"  );
   if(enUSVoice){
     const audio = new SpeechSynthesisUtterance(selectedText);
@@ -56,10 +52,15 @@ function playText() {
 
     const delayBetweenRepetitions = (audio.duration + audio.pauseAfter) * 1000;
     
-    for (let i = 0; i < selectedRepetitions; i++) {
-      setTimeout(() => {
-        window.speechSynthesis.speak(audio);
-      }, i * delayBetweenRepetitions);
+    if( window.speechSynthesis.speaking == false ){
+      for (let i = 0; i < selectedRepetitions; i++) {
+        setTimeout(() => {
+          window.speechSynthesis.speak(audio);
+        }, i * delayBetweenRepetitions);
+      }
+    }else{
+        // Para cancelar a reprodução
+        window.speechSynthesis.cancel();
     }
 
   }else{
