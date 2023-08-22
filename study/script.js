@@ -44,7 +44,7 @@ function playText() {
 
 
   // Para cancelar a reprodução
-  speechSynthesis.cancel();
+  window.speechSynthesis.cancel();
 
   //const enUSVoice = speechSynthesis.getVoices().find(voice =>  voice.lang === "en_US" || voice.lang === "en-US"  );
   
@@ -52,13 +52,13 @@ function playText() {
     audio.rate = selectedSpeed;
     //audio.voice = enUSVoice;
     let index = document.getElementById("voice-select").value;
-    audio.voice = speechSynthesis.getVoices()[index];
+    audio.voice = window.speechSynthesis.getVoices()[index];
 
     const delayBetweenRepetitions = (audio.duration + audio.pauseAfter) * 1000;
     
     for (let i = 0; i < selectedRepetitions; i++) {
       setTimeout(() => {
-        speechSynthesis.speak(audio);
+        window.speechSynthesis.speak(audio);
       }, i * delayBetweenRepetitions);
     }
 
@@ -67,7 +67,7 @@ function playText() {
 
 // Popula o select com as vozes disponíveis
 function populateVoices() {
-  const voices = speechSynthesis.getVoices();
+  const voices = window.speechSynthesis.getVoices();
 
   voicesSelect.innerHTML = '<option value="-1">Select a Voice</option>';
 
@@ -81,7 +81,7 @@ function populateVoices() {
 }
 
 // Atualiza as vozes quando as vozes estão prontas
-speechSynthesis.onvoiceschanged = () => {
+window.speechSynthesis.onvoiceschanged = () => {
   populateVoices();
 };
 
