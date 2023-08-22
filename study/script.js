@@ -82,13 +82,13 @@ function populateVoices() {
     voicesSelect.appendChild(option);
   });
 }
+*/
 
 // Atualiza as vozes quando as vozes estão prontas
 window.speechSynthesis.onvoiceschanged = () => {
-  populateVoices();
+  //populateVoices();
 };
 
 // Chamada inicial para carregar as vozes
-populateVoices();
+//populateVoices();
 
-*/
