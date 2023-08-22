@@ -40,7 +40,7 @@ function playText() {
   
   let test;
   speechSynthesis.getVoices().forEach( (iten)=>{
-    test += iten.voiceURI+"\\n";
+    test += iten.voiceURI+" | ";
   } );
 
   document.getElementById("txtSelect").innerText = test;
