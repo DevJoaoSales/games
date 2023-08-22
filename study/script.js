@@ -7,7 +7,7 @@ fetch(jsonUrl)
     .then(response => response.json())
     .then(data => {
       // Aqui você pode trabalhar com os dados do JSON
-      textOptions = data;
+      textOptions = shuffleArray(data)
       populateTitleOptions();
     })
     .catch(error => {
@@ -92,4 +92,14 @@ window.speechSynthesis.onvoiceschanged = () => {
 
 // Chamada inicial para carregar as vozes
 //populateVoices();
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+
+  return array;
+}
+
 
