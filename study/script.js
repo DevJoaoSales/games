@@ -36,20 +36,20 @@ function playText() {
   const repetitionsSelect = document.getElementById('repetitions-select');
   const selectedRepetitions = parseInt(repetitionsSelect.value);
 
-  document.getElementById("txtSelect").innerText = selectedText;
+  //document.getElementById("txtSelect").innerText = selectedText;
   
-  /*let test;
+  let test;
   speechSynthesis.getVoices().forEach( (iten)=>{
-    test += iten.voiceURI+" | ";
+    test += iten.lang+" | ";
   } );
 
   document.getElementById("txtSelect").innerText = test;
-*/
+
 
   // Para cancelar a reprodução
   speechSynthesis.cancel();
 
-  const enUSVoice = speechSynthesis.getVoices().find(voice => voice.lang === "en-US" || voice.lang === "inglês Estados Unidos" );
+  const enUSVoice = speechSynthesis.getVoices().find(voice => voice.lang === "en-US" );
   
   if (enUSVoice) {
     const audio = new SpeechSynthesisUtterance(selectedText);
