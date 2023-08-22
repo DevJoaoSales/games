@@ -1,3 +1,5 @@
+const voicesSelect = document.getElementById("voice-select");
+
 
 const jsonUrl = 'data.json';
 var textOptions = [];
@@ -36,26 +38,22 @@ function playText() {
   const repetitionsSelect = document.getElementById('repetitions-select');
   const selectedRepetitions = parseInt(repetitionsSelect.value);
 
-//  document.getElementById("txtSelect").innerText = selectedText;
+  document.getElementById("txtSelect").innerText = selectedText;
 
-  let test;
-  speechSynthesis.getVoices().forEach( (iten)=>{
-    test += iten.lang+" | ";
-  } );
-
-  document.getElementById("txtSelect").innerText = test;
+  //document.getElementById("txtSelect").innerText = test;
 
 
   // Para cancelar a reprodução
   speechSynthesis.cancel();
 
-  const enUSVoice = speechSynthesis.getVoices().find(voice =>  voice.lang === "en_US" || voice.lang === "en-AU"  );
+  //const enUSVoice = speechSynthesis.getVoices().find(voice =>  voice.lang === "en_US" || voice.lang === "en-US"  );
   
-  if (enUSVoice) {
     const audio = new SpeechSynthesisUtterance(selectedText);
     audio.rate = selectedSpeed;
-    audio.voice = enUSVoice;
-    
+    //audio.voice = enUSVoice;
+    let index = document.getElementById("voice-select").value;
+    audio.voice = speechSynthesis.getVoices()[index];
+
     const delayBetweenRepetitions = (audio.duration + audio.pauseAfter) * 1000;
     
     for (let i = 0; i < selectedRepetitions; i++) {
@@ -63,7 +61,29 @@ function playText() {
         speechSynthesis.speak(audio);
       }, i * delayBetweenRepetitions);
     }
-  } else {
-    alert('Voice not found.');
-  }
+
 }
+
+
+// Popula o select com as vozes disponíveis
+function populateVoices() {
+  const voices = speechSynthesis.getVoices();
+
+  voicesSelect.innerHTML = '<option value="-1">Select a Voice</option>';
+
+  voices.forEach((voice, index) => {
+    const option = document.createElement("option");
+    option.value = index;
+    option.textContent = `${voice.name} (${voice.lang})`;
+
+    voicesSelect.appendChild(option);
+  });
+}
+
+// Atualiza as vozes quando as vozes estão prontas
+speechSynthesis.onvoiceschanged = () => {
+  populateVoices();
+};
+
+// Chamada inicial para carregar as vozes
+populateVoices();
