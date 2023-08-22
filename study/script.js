@@ -36,15 +36,15 @@ function playText() {
   const repetitionsSelect = document.getElementById('repetitions-select');
   const selectedRepetitions = parseInt(repetitionsSelect.value);
 
-  document.getElementById("txtSelect").innerText = selectedText;
-/*  
+//  document.getElementById("txtSelect").innerText = selectedText;
+
   let test;
   speechSynthesis.getVoices().forEach( (iten)=>{
     test += iten.lang+" | ";
   } );
 
   document.getElementById("txtSelect").innerText = test;
-*/
+
 
   // Para cancelar a reprodução
   speechSynthesis.cancel();
