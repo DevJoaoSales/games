@@ -49,7 +49,7 @@ function playText() {
   // Para cancelar a reprodução
   speechSynthesis.cancel();
 
-  const enUSVoice = speechSynthesis.getVoices().find(voice => voice.lang === "en-US" || voice.lang === "en_US" );
+  const enUSVoice = speechSynthesis.getVoices().find(voice =>  voice.lang === "en_US" || voice.lang === "en-AU"  );
   
   if (enUSVoice) {
     const audio = new SpeechSynthesisUtterance(selectedText);
