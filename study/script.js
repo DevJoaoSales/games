@@ -37,11 +37,12 @@ function playText() {
   const selectedRepetitions = parseInt(repetitionsSelect.value);
 
   document.getElementById("txtSelect").innerText = selectedText;
-  
+  //document.getElementById("txtSelect").innerText = speechSynthesis.getVoices().forEach(iten => iten.voiceURI);
+
   // Para cancelar a reprodução
   speechSynthesis.cancel();
 
-  const enUSVoice = speechSynthesis.getVoices().find(voice => voice.lang === 'en-US');
+  const enUSVoice = speechSynthesis.getVoices().find(voice => voice.lang === /en-US/i);
   
   if (enUSVoice) {
     const audio = new SpeechSynthesisUtterance(selectedText);
