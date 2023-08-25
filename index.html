@@ -1,75 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meus Jogos</title>
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #282c35;
-    color: #ffffff;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-  }
-
   .container {
-    max-width: 500px;
-    margin: 0 auto;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     height: 100vh;
   }
-
-  .menu {
-    margin: 20px;
+  
+  .progress-container {
+    width: 300px;
+    height: 30px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .progress-bar {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: #333;
-    padding: 20px;
-    border-radius: 6px;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    height: 100%;
+    position: relative;
+  }
+  
+  .progress-block {
+    width: 30px;
+    height: 100%;
+    float: left;
   }
 
-  .option {
-    background-color: #444;
-    border: none;
-    padding: 10px;
-    margin: 5px;
-    cursor: pointer;
-    color: #ffffff;
-    font-size: 16px;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    border-radius: 4px;
-    width: 100%;
-  }
-
-  .option:hover {
-    background-color: #555;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-  }
-
-  .option:focus {
-    outline: none;
-    border: 2px solid #4caf50;
-  }
-
-  h1 {
-    margin-bottom: 20px;
-    font-size: 24px;
-  }
+  /* Cores dos blocos */
+  .block-1 { background-color: #ff0000; }
+  .block-2 { background-color: #ff2800; }
+  .block-3 { background-color: #ff5000; }
+  .block-4 { background-color: #ff7800; }
+  .block-5 { background-color: #ffa000; }
+  .block-6 { background-color: #ffc800; }
+  .block-7 { background-color: #ffeb00; }
+  .block-8 { background-color: #c5ff00; }
+  .block-9 { background-color: #97ff00; }
+  .block-10 { background-color: #00ff00; }
 </style>
 </head>
 <body>
+
 <div class="container">
-  <div class="menu">
-    <h1>Estudos e Jogos para treinar inglês</h1>
-    <a href="./study/study.html"><button class="option">Estudar Ingês com textos</button></a>
-    <a href="./game-words/words.html"><button class="option">Jogo de Palavras</button></a>
+  <div class="progress-container">
+    <div class="progress-bar">
+      <div class="progress-block block-1"></div>
+      <div class="progress-block block-2"></div>
+      <div class="progress-block block-3"></div>
+      <div class="progress-block block-4"></div>
+      <div class="progress-block block-5"></div>
+      <div class="progress-block block-6"></div>
+      <div class="progress-block block-7"></div>
+      <div class="progress-block block-8"></div>
+      <div class="progress-block block-9"></div>
+      <div class="progress-block block-10"></div>
+    </div>
   </div>
 </div>
+
 </body>
 </html>
