@@ -1,66 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulário de Registro</title>
 <style>
-  .container {
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-  }
-  
-  .progress-container {
-    width: 300px;
-    height: 30px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    overflow: hidden;
-  }
-  
-  .progress-bar {
-    width: 100%;
-    height: 100%;
-    position: relative;
-  }
-  
-  .progress-block {
-    width: 30px;
-    height: 100%;
-    float: left;
+    min-height: 100vh;
   }
 
-  /* Cores dos blocos */
-  .block-1 { background-color: #ff0000; }
-  .block-2 { background-color: #ff2800; }
-  .block-3 { background-color: #ff5000; }
-  .block-4 { background-color: #ff7800; }
-  .block-5 { background-color: #ffa000; }
-  .block-6 { background-color: #ffc800; }
-  .block-7 { background-color: #ffeb00; }
-  .block-8 { background-color: #c5ff00; }
-  .block-9 { background-color: #97ff00; }
-  .block-10 { background-color: #00ff00; }
+  .container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+  }
+
+  input[type="submit"] {
+    background-color: #ff8800; /* Laranja */
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #cc7700; /* Tom mais escuro de laranja */
+  }
 </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Formulário de Registro</h1>
+    <form action="processar_formulario.php" method="post">
+      <label for="name">Nome:</label>
+      <input type="text" id="name" name="name" required>
 
-<div class="container">
-  <div class="progress-container">
-    <div class="progress-bar">
-      <div class="progress-block block-1"></div>
-      <div class="progress-block block-2"></div>
-      <div class="progress-block block-3"></div>
-      <div class="progress-block block-4"></div>
-      <div class="progress-block block-5"></div>
-      <div class="progress-block block-6"></div>
-      <div class="progress-block block-7"></div>
-      <div class="progress-block block-8"></div>
-      <div class="progress-block block-9"></div>
-      <div class="progress-block block-10"></div>
-    </div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="username">Nome de Usuário:</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="password">Senha:</label>
+      <input type="password" id="password" name="password" required>
+
+      <label for="whatsapp">Número de WhatsApp:</label>
+      <input type="tel" id="whatsapp" name="whatsapp" pattern="[0-9]{10,12}" placeholder="Apenas números, mínimo 10, máximo 12">
+
+      <label for="state">Estado:</label>
+      <select id="state" name="state">
+        <option value="sao_paulo">São Paulo</option>
+        <option value="rio_de_janeiro">Rio de Janeiro</option>
+      </select>
+
+      <input type="submit" value="Registrar">
+    </form>
   </div>
-</div>
-
 </body>
 </html>
