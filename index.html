@@ -3,85 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Formulário de Registro</title>
+<title>Meus Jogos</title>
 <style>
   body {
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    background-color: #282c35;
+    color: #ffffff;
+    text-align: center;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
   }
 
   .container {
-    background-color: #fff;
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding:0px 20px;
+  }
+
+  .menu {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #333;
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    width: 400px;
+    border-radius: 6px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .option {
+    background-color: #444;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 16px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 4px;
+    width: 100%;
+  }
+
+  .option:hover {
+    background-color: #555;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .option:focus {
+    outline: none;
+    border: 2px solid #4caf50;
   }
 
   h1 {
-    text-align: center;
     margin-bottom: 20px;
-  }
-
-  label {
-    display: block;
-    margin-bottom: 5px;
-  }
-
-  input, select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    font-size: 16px;
-  }
-
-  input[type="submit"] {
-    background-color: #ff8800; /* Laranja */
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-
-  input[type="submit"]:hover {
-    background-color: #cc7700; /* Tom mais escuro de laranja */
+    font-size: 24px;
   }
 </style>
 </head>
+
 <body>
   <div class="container">
-    <h1>Formulário de Registro</h1>
-    <form action="processar_formulario.php" method="post">
-      <label for="name">Nome:</label>
-      <input type="text" id="name" name="name" required>
-
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
-
-      <label for="username">Nome de Usuário:</label>
-      <input type="text" id="username" name="username" required>
-
-      <label for="password">Senha:</label>
-      <input type="password" id="password" name="password" required>
-
-      <label for="whatsapp">Número de WhatsApp:</label>
-      <input type="tel" id="whatsapp" name="whatsapp" pattern="[0-9]{10,12}" placeholder="Apenas números, mínimo 10, máximo 12">
-
-      <label for="state">Estado:</label>
-      <select id="state" name="state">
-        <option value="sao_paulo">São Paulo</option>
-        <option value="rio_de_janeiro">Rio de Janeiro</option>
-      </select>
-
-      <input type="submit" value="Registrar">
-    </form>
+    <div class="menu">
+      <h1>Jogos para treinar inglês</h1>
+      <h1>Estudos e Jogos para treinar inglês</h1>
+      <a href="./study/study.html"><button class="option">Estudar Ingês com textos</button></a>
+      <a href="./game-words/words.html"><button class="option">Jogo de Palavras</button></a>
+      <button class="option">Opção 2</button>
+    </div>
   </div>
 </body>
+
 </html>
