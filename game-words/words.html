@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jogo Associação</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -30,72 +31,124 @@
     flex-direction: column;
   }
 
-  .item {
+  button.item-word, button.item-img {
     background-color: #444;
     border: none;
-    padding: 20px;
-    margin: 10px;
+    margin: 10px 0px;
     cursor: pointer;
     color: #ffffff;
     font-size: 16px;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
     border-radius: 6px;
-    width: 100%;
+    padding: 0px;
   }
 
-  .item:hover {
+  button.item-word { width: 100%; padding: 20px; margin: 20px 0px; }
+
+  button.item-word:hover, button.item-img:hover {
     background-color: #555;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
   }
 
-  .item:focus {
-    outline: none;
-    border: 2px solid #4caf50;
+  button.item-word:focus, button.item-img:focus, button.active {
+    outline: 2px solid #4caf50;
     color: #4caf50;
+  }
+
+  button.item-img figure {
+    margin: auto;
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+  }
+
+  button.item-img:focus figure, button.item-img.active figure {
+    background-color: #deffdf!important;
   }
 
   h1 {
     margin: 20px 0;
     font-size: 24px;
   }
+
 </style>
 </head>
 <body>
-<h1>Jogo Associação</h1>
+<!--<h1>Jogo Associação</h1>-->
 <div class="container">
   <div class="column" id="englishColumn"></div>
-  <div class="column" id="portugueseColumn"></div>
+  <div class="column" id="imageColumn"></div>
 </div>
 
 <script>
-  const words = [
-    { english: "Apple", portuguese: "Maçã" },
-    { english: "Strawberry", portuguese: "Morango" },
-    { english: "Grapes", portuguese: "Uva" },
-    { english: "Car", portuguese: "Carro" },
-    { english: "Book", portuguese: "Livro" },
-    { english: "Table", portuguese: "Mesa" },
-    { english: "Chair", portuguese: "Cadeira" },
-    { english: "Phone", portuguese: "Telefone" },
-    { english: "Computer", portuguese: "Computador" },
-    { english: "Key", portuguese: "Chave" },
-    { english: "Clock", portuguese: "Relógio" },
-    { english: "Door", portuguese: "Porta" },
-    { english: "Window", portuguese: "Janela" },
-    { english: "Bicycle", portuguese: "Bicicleta" },
-    { english: "Chair", portuguese: "Cadeira" },
-    { english: "Tablet", portuguese: "Tablet" },
-    { english: "Pen", portuguese: "Caneta" },
-    { english: "Pencil", portuguese: "Lápis" },
-    { english: "Bag", portuguese: "Bolsa" },
-    { english: "Shoes", portuguese: "Sapatos" },
-    { english: "Hat", portuguese: "Chapéu" },
-    { english: "Umbrella", portuguese: "Guarda-chuva" },
-    { english: "Cup", portuguese: "Copo" }
-  ];
 
-  const selectedWords = [];
+const jsonUrl = 'data.json';
+var words = [];
+const englishColumn = document.getElementById("englishColumn");
+const imageColumn = document.getElementById("imageColumn");
+const selectedWords = [];
+
+$(document).ready( function(){
+    
+  fetch(jsonUrl)
+      .then(response => response.json())
+      .then(data => {
+        // Aqui você pode trabalhar com os dados do JSON
+        words = shuffleArray(data);
+        start();
+      })
+      .catch(error => {
+        console.error('Error fetching JSON:', error);
+      });
+
+      // EVENTOS AO INTERAGIR AO EXERCICIO.
+      $(".container").on("click","button",function(){
+        
+        let id = ("#"+$(this).parent().attr("id"));
+        $(`${id} button`).removeClass("active");
+        
+        $(this).addClass("active");
+
+        validarResposta();
+
+      });
+
+}) // END LOADER.
+
+/* ####################################### */
+/* ########## FUNCTION SHUFLE ############ */
+// EMBARALHA ARRAY.
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+
+  return array;
+}
+
+// EMBARALHA ELEMENTO HTML.
+function embaralhaHTML(seletor){
+  let el = document.querySelectorAll(seletor);
+
+  for(let a=0;a<el.length;a++){
+    let temp = document.querySelectorAll(seletor);
+    let n_random = Math.floor( Math.random() * temp.length );
+    
+    // ADICIONAR ELEMENTO ALEATORIO.
+    document.querySelector(seletor.split(" ")[0]).innerHTML += temp[n_random].outerHTML;
+
+    // REMOVER ELEMENTO.
+    temp = document.querySelectorAll(seletor);
+    temp[n_random].remove();
+  }
+  
+}
+
+// START EXERCICIO.
+function start(){ 
+
   while (selectedWords.length < 4) {
     const randomIndex = Math.floor(Math.random() * words.length);
     const selectedWord = words[randomIndex];
@@ -104,22 +157,45 @@
     }
   }
 
-  const englishColumn = document.getElementById("englishColumn");
-  const portugueseColumn = document.getElementById("portugueseColumn");
 
   selectedWords.forEach(wordPair => {
-    const englishButton = document.createElement("button");
-    englishButton.classList.add("item");
-    englishButton.textContent = wordPair.english;
+    const englishButton = (`<button class="item-word">${wordPair}</button>`);
+    
+    const figure = (`<figure style="background: #fff url(./images/${wordPair.replace(/ /g,"-").toLowerCase()}.png) no-repeat center;background-size:contain;"></figure>`);
+    const imageButton = (`<button class="item-img">${figure}</button>`);
 
-    const portugueseButton = document.createElement("button");
-    portugueseButton.classList.add("item");
-    portugueseButton.textContent = wordPair.portuguese;
+    englishColumn.innerHTML += (englishButton);
+    imageColumn.innerHTML += (imageButton);
 
-    englishColumn.appendChild(englishButton);
-    portugueseColumn.appendChild(portugueseButton);
   });
-  
+
+  // embaralhe as colunas
+  embaralhaHTML("#englishColumn button");
+  embaralhaHTML("#imageColumn button");
+}
+
+// VALIDAR RESPOSTA.
+function validarResposta(){
+
+  let enBut = $("#englishColumn .active");
+  let imgBut = $("#imageColumn .active");
+
+  if( enBut.length > 0 && imgBut.length > 0 ){
+    let en = enBut.text().toLowerCase().replace(/ /g,"-");
+    let img = imgBut.find("figure").css("background-image").split("/");
+    img = img[img.length-1].match(/(.*?)\.png/)[1];
+
+    if( en.trim() == img.trim() ){
+      console.log("Acertou...");
+    }else{
+      console.log("Errou...")
+    }
+    console.log(en,img);
+    //validar
+  }
+
+}
+
 </script>
 </body>
 </html>
