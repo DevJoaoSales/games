@@ -126,7 +126,7 @@
                 const voices = window.speechSynthesis.getVoices();
                 ut = new SpeechSynthesisUtterance(textToSpeak);
                 
-                ut.lang = ut.voice.lang;
+                ut.lang = "it-IT";
                 ut.voice = voices[selectedVoiceIndex];
                 selec = voices[selectedVoiceIndex];
                 alert(ut.voice.lang)
