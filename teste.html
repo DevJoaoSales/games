@@ -98,11 +98,10 @@
             voiceSelect.innerHTML = '';
 
             //if ('speechSynthesis' in window) {
-                const speechSynthesis = window.speechSynthesis;
 
-                if (speechSynthesis.onvoiceschanged !== undefined) {
-                    speechSynthesis.onvoiceschanged = function () {
-                        const voices = speechSynthesis.getVoices();
+                if (window.speechSynthesis.onvoiceschanged !== undefined) {
+                    window.speechSynthesis.onvoiceschanged = function () {
+                        const voices = window.speechSynthesis.getVoices();
 
                         voices.forEach((voice, index) => {
                             const option = document.createElement('option');
@@ -124,16 +123,15 @@
             const selectedVoiceIndex = voiceSelect.value;
 
             if (textToSpeak && selectedVoiceIndex !== '') {
-                const speechSynthesis = window.speechSynthesis;
-                const voices = speechSynthesis.getVoices();
-                window.speechUtterance = new window.SpeechSynthesisUtterance(textToSpeak);
+                const voices = window.speechSynthesis.getVoices();
+                ut = new window.SpeechSynthesisUtterance(textToSpeak);
+                
 
-                //speechUtterance.voice = voices[selectedVoiceIndex];
-                //selec = voices[selectedVoiceIndex];
+                ut.voice = voices[selectedVoiceIndex];
+                selec = voices[selectedVoiceIndex];
+                alert(ut.voice.lang)
 
-                window.speechUtterance.voice = voices[30];
-                selec = voices[30];
-                window.speechSynthesis.speak(window.speechUtterance);
+                window.speechSynthesis.speak(ut);
             }
         }
 
