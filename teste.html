@@ -87,7 +87,7 @@
                 temp += "\n"+voice.name;
             })
 
-            alert(temp);
+            alert(selec.lang);
 
         }
 
@@ -97,7 +97,7 @@
             const voiceSelect = document.getElementById('voiceSelect');
             voiceSelect.innerHTML = '';
 
-            if ('speechSynthesis' in window) {
+            //if ('speechSynthesis' in window) {
                 const speechSynthesis = window.speechSynthesis;
 
                 if (speechSynthesis.onvoiceschanged !== undefined) {
@@ -112,9 +112,9 @@
                         });
                     };
                 }
-            } else {
+            /*} else {
                 voiceSelect.innerHTML = '<option value="">A API de síntese de voz não é suportada neste navegador.</option>';
-            }
+            }*/
         }
 
         // Função para falar o texto selecionado com a voz escolhida
@@ -126,10 +126,10 @@
             if (textToSpeak && selectedVoiceIndex !== '') {
                 const speechSynthesis = window.speechSynthesis;
                 const voices = speechSynthesis.getVoices();
-                const speechUtterance = new SpeechSynthesisUtterance(textToSpeak);
+                const speechUtterance = new window.SpeechSynthesisUtterance(textToSpeak);
 
                 speechUtterance.voice = voices[selectedVoiceIndex];
-
+                selec = voices[selectedVoiceIndex];
                 speechSynthesis.speak(speechUtterance);
             }
         }
@@ -137,6 +137,7 @@
         document.getElementById('speakButton').addEventListener('click', speakText);
 
         window.addEventListener('DOMContentLoaded', loadVoices);
+var selec = "";        
     </script>
 
 
