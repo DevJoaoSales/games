@@ -91,7 +91,7 @@
 
                 // Aguarde o evento 'voiceschanged' para garantir que as vozes estejam carregadas
                 speechSynthesis.onvoiceschanged = function () {
-                    const voices = speechSynthesis.getVoices();
+                    const voices = window.speechSynthesis.getVoices();
 
                     voices.forEach((voice, index) => {
                         const option = document.createElement('option');
