@@ -73,9 +73,13 @@
         <label for="textToSpeak">Digite o texto que deseja que seja falado:</label>
         <textarea id="textToSpeak" rows="4" cols="50"></textarea>
         <button type="button" id="speakButton">Falar</button>
+        <button type="button" onclick="loadVoices()">Carregar</button>
     </form>
 
     <script>
+    window.onload = function(){ 
+        //loadVoices();
+    }  
         // Função para carregar e preencher o select com as vozes disponíveis
         function loadVoices() {
             const voiceSelect = document.getElementById('voiceSelect');
@@ -124,7 +128,7 @@
         document.getElementById('speakButton').addEventListener('click', speakText);
 
         // Carregue as vozes quando a página for carregada
-        window.addEventListener('DOMContentLoaded', loadVoices);
+        //window.addEventListener('DOMContentLoaded', loadVoices);
     </script>
 </body>
 </html>
