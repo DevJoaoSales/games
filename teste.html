@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Síntese de Voz a partir do Texto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        #textToSpeechForm {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        #voiceSelect,
+        #textToSpeak {
+            width: 95%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        #voiceSelect {
+            margin-bottom: 10px;
+        }
+
+        button {
+            display: block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Síntese de Voz a partir do Texto</h1>
+    
+    <form id="textToSpeechForm">
+        <label for="voiceSelect">Escolha uma voz:</label>
+        <select id="voiceSelect"></select>
+        <label for="textToSpeak">Digite o texto que deseja que seja falado:</label>
+        <textarea id="textToSpeak" rows="4" cols="50"></textarea>
+        <button type="button" id="speakButton">Falar</button>
+    </form>
+
+    <script>
+        // Função para carregar e preencher o select com as vozes disponíveis
+        function loadVoices() {
+            const voiceSelect = document.getElementById('voiceSelect');
+            voiceSelect.innerHTML = '';
+
+            // Verifica se a API de síntese de voz está disponível no navegador
+            if ('speechSynthesis' in window) {
+                const speechSynthesis = window.speechSynthesis;
+
+                // Aguarde o evento 'voiceschanged' para garantir que as vozes estejam carregadas
+                speechSynthesis.onvoiceschanged = function () {
+                    const voices = speechSynthesis.getVoices();
+
+                    voices.forEach((voice, index) => {
+                        const option = document.createElement('option');
+                        option.value = index.toString();
+                        option.textContent = `${voice.name} (${voice.lang})`;
+                        voiceSelect.appendChild(option);
+                    });
+                };
+            } else {
+                voiceSelect.innerHTML = '<option value="">A API de síntese de voz não é suportada neste navegador.</option>';
+            }
+        }
+
+        // Função para falar o texto selecionado com a voz escolhida
+        function speakText() {
+            const textToSpeak = document.getElementById('textToSpeak').value;
+            const voiceSelect = document.getElementById('voiceSelect');
+            const selectedVoiceIndex = voiceSelect.value;
+
+            if (textToSpeak && selectedVoiceIndex !== '') {
+                const speechSynthesis = window.speechSynthesis;
+                const voices = speechSynthesis.getVoices();
+                const speechUtterance = new SpeechSynthesisUtterance(textToSpeak);
+
+                // Defina a voz selecionada
+                speechUtterance.voice = voices[selectedVoiceIndex];
+
+                // Fale o texto usando a voz selecionada
+                speechSynthesis.speak(speechUtterance);
+            }
+        }
+
+        // Adicione um ouvinte de eventos ao botão para falar o texto
+        document.getElementById('speakButton').addEventListener('click', speakText);
+
+        // Carregue as vozes quando a página for carregada
+        window.addEventListener('DOMContentLoaded', loadVoices);
+    </script>
+</body>
+</html>
