@@ -124,9 +124,9 @@
 
             if (textToSpeak && selectedVoiceIndex !== '') {
                 const voices = window.speechSynthesis.getVoices();
-                ut = new window.SpeechSynthesisUtterance(textToSpeak);
+                ut = new SpeechSynthesisUtterance(textToSpeak);
                 
-
+                ut.lang = ut.voice.lang;
                 ut.voice = voices[selectedVoiceIndex];
                 selec = voices[selectedVoiceIndex];
                 alert(ut.voice.lang)
