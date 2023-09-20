@@ -74,9 +74,24 @@
         <label for="textToSpeak">Digite o texto que deseja que seja falado:</label>
         <textarea id="textToSpeak" rows="4" cols="50"></textarea>
         <button type="button" id="speakButton">Falar</button>
+        <button type="button" onclick="teste()">teste</button>
     </form>
 
     <script>
+
+        function teste(){
+            let v = window.speechSynthesis.getVoices();
+            let temp = "";
+
+            v.forEach((voice, index) => {
+                temp += "\n"+voice.name;
+            })
+
+            alert(temp);
+
+        }
+
+
         // Função para carregar e preencher o select com as vozes disponíveis
         function loadVoices() {
             const voiceSelect = document.getElementById('voiceSelect');
